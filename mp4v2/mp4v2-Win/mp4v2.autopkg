@@ -1,0 +1,71 @@
+configurations
+{
+   Toolset {
+      key : "PlatformToolset";
+      choices: { v141 };
+   };
+}
+nuget
+{
+   nuspec
+   {
+      id = mp4v2;
+      version: 4.1.0.0;
+      title: MP4v2 Library;
+      authors: { TechSmith Corporation };
+      owners: { TechSmith Corporation };
+      licenseUrl: "http://www.mozilla.org/MPL/";
+      projectUrl: "https://github.com/TechSmith/mp4v2";
+      iconUrl: "http://www.techsmith.com/favicon.ico";
+      requireLicenseAcceptance: false;
+      summary: MP4v2 Library for use within TechSmith;
+      description: @"The MP4v2 library provides an API to create and modify mp4 files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems. Code is derived from mp4v2 v2.0 (https://code.google.com/p/mp4v2/).
+      New features:
+      Breaking Changes:
+         3.0.0.0 Update to Visual Studio 2015 and remove some projects that weren't included in the NuGet package
+         3.0.0.1 Fix path to lib files
+         3.0.1.0 Bumping the version number since some new functions were added in the past three commits
+         3.0.1.1 Sync version number in .autopkg with the one in mp4v2/project.h
+         3.0.2.0 Picking up Stephen Wagner's updates to handle PNG MOVs
+         3.0.3.0 Fixing a bug where version number 3.0.2 was inconsistent in project.h
+         4.0.0.0 Updated to Visual Studio 2017
+         4.0.1.0 Fix autopkg file
+         4.1.0.0 Security fixes";
+      copyright: "";
+      tags: { native, mp4v2, mp4, vs2017 };
+   };
+
+   files
+   {
+      nestedInclude:  { #destination = ${d_include}mp4v2; ..\include\mp4v2\*.h };
+
+      ("Win32,x64", "v141", "Debug,Release") =>
+      {
+         [${0},${1},${2}]
+         {
+            lib:         { bin\${0}\${2}\*.lib; }
+            bin:         { bin\${0}\${2}\*.dll;
+                           bin\${0}\${2}\*.pdb; }
+         };
+      };
+   };
+
+   props
+   {
+      // Additional declarations to insert into consuming projects before most of the
+      // project settings. (These may be modified in visual studio by a developer
+      // consuming this package.)
+      // This node is typically not needed for most packages and may be omitted.
+   }
+
+   targets
+   {
+      // Additional declarations to insert into consuming projects after most of the
+      // project settings. (These may NOT be modified in visual studio by a developer
+      // consuming this package.)
+      // This node is often used to set defines that are required that must be set by
+      // the consuming project in order to correctly link to the libraries in this
+      // package.  Such defines may be set either globally or only set under specific
+      // conditions.
+    }
+}

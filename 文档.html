@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>regioncontro 项目文档</title>
+     <link rel="stylesheet" href="文档.css" />
+</head>
+<body>
+
+    <h2 id="regioncontro">regioncontro 项目文档</h2>
+<h4 id="section">原理</h4>
+<p>被控端 录屏 编码h264 发送到控制端 =》 控制端接收解码显示</p>
+<p>控制端接收并模拟鼠标键盘消息  《= 控制端发送鼠标键盘消息</p>
+<h4 id="section-1">源码项目描述</h4>
+<p>controlled 被控制端核心静态lib库，录屏负责编码 处理鼠标键盘消息</p>
+<p>regioncontro 调用controlled传参，exe程序</p>
+<p>ControlRemote 控制端库，负责接收h264解码，并发送鼠标键盘消息</p>
+<p>WindowsFormsApp winfrom控制端，调用ControlRemote.dll</p>
+<hr />
+<h4 id="controlled.lib">被控制端controlled.lib 静态库详情</h4>
+<p>整个库就一个核心接口是<code>class Work</code></p>
+<pre><code>
+	//const Monitor&amp;, 屏幕数据，其中包括录屏的区域
+	//int fps, 每秒帧数
+	//bool capture_cursor,  是否显示鼠标
+	//int bitrate, 比特率
+	//std::string&amp; x264_preset, 
+	//std::string&amp; x264_tune, 
+	//check_key ckcall,键盘事件验证，返回false则不处理消息，用与拦截某些按键
+	//std::string&amp; record_file 录制文件
+
+	//初始化函数
+	bool Init(const Monitor&amp;,int fps, bool capture_cursor, int bitrate, std::string&amp; x264_preset, std::string&amp; x264_tune, check_key ckcall,std::string&amp; record_file);
+	
+	//开始函数
+	void Start(SOCKET socket_con);
+
+	//手动结束清理
+	void StopClear();
+
+	//等待一个结束信号
+	void WaitStop();
+</code></pre>
+<p>调用流程</p>
+<pre><code>Init 初始化 -&gt; Start 开始 -&gt;  StopClear 结束
+
+WaitStop 函数可以等待recv线程结束
+
+</code></pre>
+<p>引用库：</p>
+<p><code>libx264-148.dll</code> 此库为x264编码库</p>
+<p><code>libyuv</code> 此静态库是yuv和rgba快速转换库，为谷歌开源项目</p>
+<p>源码解析：</p>
+<p><code>CaptureCommon.cpp</code> 为获取屏幕大小</p>
+<p><code>Capture.cpp</code> 截屏功能 核心函数是BitBlt</p>
+<p><code>flvenc.cpp</code> 保存h264为flv文件的功能</p>
+<p><code>LSendInput.cpp</code> 向本机发送鼠标键盘消息</p>
+<p><code>net_protocol.cpp</code> 简易通讯相关</p>
+<p><code>pkt_queue.cpp</code> 一个简单的cas锁队列</p>
+<p><code>Work.cpp</code> 核心代码 这个类会开启<code>四个线程</code>来工作，分别是，
+如下</p>
+<pre><code>	void CaptureWork();截屏线程
+	void EncoderWork();编码线程
+	void OutPutWork();发送h264到远端&amp;保存文件线程
+	void RecvCtr(); 接收远端鼠标键盘线程 并发送到本地
+
+</code></pre>
+<p>线程之间用event和pkt_queue队列通讯</p>
+<hr />
+<h4 id="controlremote.dll">控制端ControlRemote.dll</h4>
+<p>此库共提供一下几个接口</p>
+<pre><code>//程序启动调用
+ int _stdcall DLLInit();
+ 
+ /*创建一个上下文
+ HWND hwnd, 窗口句柄
+ SOCKET socket_con, socket 句柄
+
+ StartCall startCall, 开始回调，传入视频高宽
+ DisconnectCall disconnectCall, 断开回调
+ ErrorMessageCall errorMessageCall 错误消息回调
+ */
+ void*_stdcall NewContext(HWND hwnd,SOCKET socket_con, 
+	 StartCall startCall, DisconnectCall disconnectCall, ErrorMessageCall errorMessageCall);
+
+ //删除并停止这个上下文线程
+ void _stdcall DeleteStopContext(Context* context);
+
+ //开始线程
+ int _stdcall StartWork(Context* context);
+
+
+ //发送鼠标位置
+ int _stdcall SendCursorPos(Context* context, int x, int y);
+
+ //发送鼠标点击事件
+ int _stdcall SendMouseEvent(Context* context, unsigned int action, int wheel);
+
+ //发送键盘事件
+ int _stdcall SendKeyEvent(Context* context, int VK, bool down);
+</code></pre>
+<p>调用流程</p>
+<pre><code>
+DLLInit   
+
+NewContext
+    |
+StartWork 
+    |
+[SendCursorPos SendMouseEvent SendKeyEvent]  
+    |
+DeleteStopContext
+
+</code></pre>
+<p>引用库：</p>
+<p><code>ffmpeg</code> 解码</p>
+<p><code>SDL</code> sdl显示库</p>
+<p>源码解析：</p>
+<p>核心就一个<code>ControlRemote.cpp</code></p>
+<p>接收h264并解码显示</p>
+<hr />
+<h4 id="windowsformsapp">WindowsFormsApp 说明</h4>
+<p>控制端ControlRemote.dll只是最底层的功能，实现完整的控制必须依赖前段界面</p>
+<p>ControlRemote.dll的线程只负责接收h264解码显示，</p>
+<p>发送鼠标键盘消息，是winfrom调用ControlRemote.dll完成，并不在ControlRemote.dll创建的线程里</p>
+<p>winform会把自己的某个空间句柄传给ControlRemote.dll 当做显示界面，示例代码是用一个 PictureBox控件来显示</p>
+<p>更多请参见源码</p>
+<hr />
+<h4 id="section-2">通讯协议简单描述</h4>
+<p>简单的通讯协议定义为 <code>net_protocol.h cpp</code>文件</p>
+<p>一个包分为 包头和正文</p>
+<p>包头：起始标志+包类型+正文长度正文</p>
+<pre><code>struct PacketHead
+{
+	//起始标志位0xffffffff  uint32 max
+	uint32_t start_sign;
+	//类型
+	uint32_t type;
+	//正文长度
+	uint32_t len;
+};
+</code></pre>
+<p>接收这个固定长度头部，开始接收正文长度<code>uint32_t len;</code></p>
+<p><code>uint32_t type;</code>是类型，大体分为，屏幕数据包，鼠标键盘消息包等等</p>
+<p>在通讯开始的时候会有一个read包发送和接收，参见<code>Work::ReadyCheck</code></p>
+<hr />
+<h5 id="ffmpeg">ffmpeg编译</h5>
+<p>ffmpeg 和libx264都是开源项目，可以自己百度搜索如何编译，</p>
+<p>ffmpeg 编译参数为：</p>
+<pre><code>./configure --enable-shared --prefix=/ffmpeg/  --disable-everything   --enable-decoder=h264 --enable-parser=h264 --enable-demuxer=h264 --disable-programs --disable-iconv --extra-ldlibflags=&quot;-static-libgcc&quot;   --disable-avdevice  --disable-swresample --disable-swscale --disable-postproc --disable-avfilter --disable-avformat 
+</code></pre>
+<p>注意，mingw编译的ffmpeg和x264 的lib文件在vs2010下没法用，必须用工具通过dll重新生成lib，否则在vs2010的release模式下编译运行会出错！！</p>
+
+
+</body>
+</html>

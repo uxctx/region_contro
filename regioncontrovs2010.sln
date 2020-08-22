@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "regioncontro", "regioncontro\regioncontro.vcxproj", "{0CE76BDD-9092-4A9E-9529-08FE32B139D0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "controlled", "controlled\controlled.vcxproj", "{5102333D-1C8D-4D47-A578-B1B7C2421652}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ControlRemote", "ControlRemote\ControlRemote.vcxproj", "{18160A04-D4D0-4BAB-82A4-3452F07CE5E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp", "WindowsFormsApp\WindowsFormsApp.csproj", "{2F807E3B-7E46-4F81-A8DB-E724B95215CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CE76BDD-9092-4A9E-9529-08FE32B139D0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0CE76BDD-9092-4A9E-9529-08FE32B139D0}.Debug|Win32.Build.0 = Debug|Win32
+		{0CE76BDD-9092-4A9E-9529-08FE32B139D0}.Release|Win32.ActiveCfg = Release|Win32
+		{0CE76BDD-9092-4A9E-9529-08FE32B139D0}.Release|Win32.Build.0 = Release|Win32
+		{5102333D-1C8D-4D47-A578-B1B7C2421652}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5102333D-1C8D-4D47-A578-B1B7C2421652}.Debug|Win32.Build.0 = Debug|Win32
+		{5102333D-1C8D-4D47-A578-B1B7C2421652}.Release|Win32.ActiveCfg = Release|Win32
+		{5102333D-1C8D-4D47-A578-B1B7C2421652}.Release|Win32.Build.0 = Release|Win32
+		{18160A04-D4D0-4BAB-82A4-3452F07CE5E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18160A04-D4D0-4BAB-82A4-3452F07CE5E0}.Debug|Win32.Build.0 = Debug|Win32
+		{18160A04-D4D0-4BAB-82A4-3452F07CE5E0}.Release|Win32.ActiveCfg = Release|Win32
+		{18160A04-D4D0-4BAB-82A4-3452F07CE5E0}.Release|Win32.Build.0 = Release|Win32
+		{2F807E3B-7E46-4F81-A8DB-E724B95215CA}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{2F807E3B-7E46-4F81-A8DB-E724B95215CA}.Release|Win32.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

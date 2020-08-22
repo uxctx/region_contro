@@ -1,0 +1,43 @@
+﻿  main.cpp
+e:\work\regioncontro\regioncontro\main.cpp(220): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“Keys”
+e:\work\regioncontro\regioncontro\main.cpp(222): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“Keys”
+e:\work\regioncontro\regioncontro\cmdline.h(727): warning C4101: “e”: 未引用的局部变量
+          e:\work\regioncontro\regioncontro\cmdline.h(722): 编译类 模板 成员函数“bool cmdline::parser::option_with_value<T>::set(const std::string &)”时
+          with
+          [
+              T=std::string
+          ]
+          e:\work\regioncontro\regioncontro\cmdline.h(783): 参见对正在编译的类 模板 实例化“cmdline::parser::option_with_value<T>”的引用
+          with
+          [
+              T=std::string
+          ]
+          e:\work\regioncontro\regioncontro\cmdline.h(348): 参见对正在编译的类 模板 实例化“cmdline::parser::option_with_value_with_reader<T,F>”的引用
+          with
+          [
+              T=std::string,
+              F=cmdline::oneof_reader<std::string>
+          ]
+          e:\work\regioncontro\regioncontro\main.cpp(63): 参见对正在编译的函数 模板 实例化“void cmdline::parser::add<std::string,cmdline::oneof_reader<T>>(const std::string &,char,const std::string &,bool,const T,F)”的引用
+          with
+          [
+              T=std::string,
+              F=cmdline::oneof_reader<std::string>
+          ]
+e:\work\regioncontro\regioncontro\cmdline.h(727): warning C4101: “e”: 未引用的局部变量
+          e:\work\regioncontro\regioncontro\cmdline.h(722): 编译类 模板 成员函数“bool cmdline::parser::option_with_value<T>::set(const std::string &)”时
+          with
+          [
+              T=int
+          ]
+          e:\work\regioncontro\regioncontro\cmdline.h(368): 参见对正在编译的类 模板 实例化“cmdline::parser::option_with_value<T>”的引用
+          with
+          [
+              T=int
+          ]
+          e:\work\regioncontro\regioncontro\main.cpp(84): 参见对正在编译的函数 模板 实例化“const T &cmdline::parser::get<int>(const std::string &) const”的引用
+          with
+          [
+              T=int
+          ]
+  regioncontro.vcxproj -> E:\work\regioncontro\bin\Debug\regioncontro.exe

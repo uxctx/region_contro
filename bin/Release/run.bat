@@ -1,0 +1,1 @@
+regioncontro.exe --x 0 --y 0 --w 500 --h 500 --record out.mp4

@@ -1,0 +1,13 @@
+﻿  stdafx.cpp
+  net_protocol.cpp
+  dllmain.cpp
+  ControlRemote.cpp
+e:\work\regioncontro\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+e:\work\regioncontro\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+e:\work\regioncontro\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+e:\work\regioncontro\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+e:\work\regioncontro\include\libavutil\rational.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  正在生成代码...
+     正在创建库 E:\work\regioncontro\Debug\ControlRemote.lib 和对象 E:\work\regioncontro\Debug\ControlRemote.exp
+     正在创建库 E:\work\regioncontro\Debug\ControlRemote.lib 和对象 E:\work\regioncontro\Debug\ControlRemote.exp
+  ControlRemote.vcxproj -> E:\work\regioncontro\Debug\ControlRemote.dll
