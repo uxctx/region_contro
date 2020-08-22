@@ -1,3 +1,18 @@
+#### regioncontro 是一个自定义远程桌面控制项目。自定义协议，将桌面数据编码为h264，同时控制端发出鼠标键盘信号在被控制端重现，默认工作端口tcp9090。rgioncontro.exe支持xp系统。
+
+```
+如何运行：
+
+被控制端启动，最好是两台主机或者将gioncontro.exe运行在虚拟机
+\bin\Release\regioncontro.exe --x 0 --y 0 --w 200 --h 200
+
+ --x 0 --y 0 --w 200 --h 200 代表被控制端可见的的桌面区域
+
+
+控制端
+\Release\WindowsFormsApp.exe
+```
+
 ## regioncontro 项目文档
 
 
